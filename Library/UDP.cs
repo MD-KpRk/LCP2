@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
-using System.Windows;
+
 
 namespace Library
 {
@@ -52,7 +52,7 @@ namespace Library
                     {
                         byte[] data = receiver.Receive(ref remoteIp);
                         string message = Encoding.Unicode.GetString(data);
-                        MessageBox.Show(message);
+                        Debug.WriteLine(message);
                     }
                 }
                 catch (Exception ex)

@@ -25,9 +25,12 @@ namespace Client
 
             MyIP ip = new MyIP();
 
-            MessageBox.Show(ip.IPv4?.ToString());
+            MessageBox.Show("Local IP: " + ip.IPv4?.ToString());
 
+            UDP.Client udpClient = new UDP.Client();
 
+            udpClient.SendBroadCastMessage("Hello World");
+            
         }
     }
 

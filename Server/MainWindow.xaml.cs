@@ -17,9 +17,6 @@ using Library;
 
 namespace Server
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         public MainWindow()
@@ -27,9 +24,15 @@ namespace Server
             InitializeComponent();
             UDP.Server udpServer = new UDP.Server(8001);
 
-            Thread receiveThread = new Thread(new ThreadStart(udpServer.RecieveMessage));
-            receiveThread.Start();
+            Thread receiveThread = new Thread(new ParameterizedThreadStart(udpServer.RecieveMessage));
+            MessageProcesser msgdel = GetAnswer;
+            receiveThread.Start(msgdel);
 
+        }
+
+        void GetAnswer(string str)
+        {
+            MessageBox.Show(str);
         }
     }
 }

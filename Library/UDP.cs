@@ -7,6 +7,8 @@ using System.Text;
 
 namespace Library
 {
+    public delegate void MessageProcesser(string message);
+
     public class UDP
     {
         public static readonly IPAddress groupAddr = IPAddress.Parse("235.5.5.11");
@@ -46,7 +48,7 @@ namespace Library
                 this.recievePort = recievePort;
             }
 
-            public void RecieveMessage()
+            public void RecieveMessage(object ?delg)
             {
                 UdpClient receiver = new UdpClient(recievePort);
                 receiver.JoinMulticastGroup(groupAddr, 10);
@@ -57,7 +59,16 @@ namespace Library
                     {
                         byte[] data = receiver.Receive(ref remoteIp);
                         string message = Encoding.Unicode.GetString(data);
-                        Debug.WriteLine(message);
+                        try
+                        {
+                            MessageProcesser? messageProcessing = delg as MessageProcesser;
+                            if (messageProcessing == null) return;
+                            messageProcessing(message);
+                        }
+                        catch(Exception ex)
+                        {
+                            Debug.WriteLine(ex.Message);
+                        }
                     }
                 }
                 catch (Exception ex)

@@ -11,17 +11,17 @@ namespace Library
     {
         public static readonly IPAddress groupAddr = IPAddress.Parse("235.5.5.11");
 
-        const int remotePort = 8002; // порт для отправки данных
-        const int localPort = 8001; // локальный порт для прослушивания входящих подключений
-
-
         public class Client
         {
-                
+            public readonly int targetPort;
+            public Client(int targetPort)
+            {
+                this.targetPort = targetPort;
+            }
             public void SendBroadCastMessage(string Message)
             {
                 UdpClient sender = new UdpClient();
-                IPEndPoint endPoint = new IPEndPoint(groupAddr, remotePort);
+                IPEndPoint endPoint = new IPEndPoint(groupAddr, targetPort);
                 try
                 {
                     byte[] data = Encoding.Unicode.GetBytes(Message);
@@ -40,10 +40,15 @@ namespace Library
 
         public class Server
         {
+            public readonly int recievePort;
+            public Server(int recievePort)
+            {
+                this.recievePort = recievePort;
+            }
 
             public void RecieveMessage()
             {
-                UdpClient receiver = new UdpClient(localPort);
+                UdpClient receiver = new UdpClient(recievePort);
                 receiver.JoinMulticastGroup(groupAddr, 10);
                 IPEndPoint remoteIp = null;
                 try

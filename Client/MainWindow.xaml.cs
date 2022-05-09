@@ -27,7 +27,7 @@ namespace Client
 
             MessageBox.Show("Local IP: " + ip.IPv4?.ToString());
 
-            UDP.Client udpClient = new UDP.Client();
+            UDP.Client udpClient = new UDP.Client(8001);
 
             udpClient.SendBroadCastMessage("Hello World");
             

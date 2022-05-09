@@ -25,7 +25,7 @@ namespace Server
         public MainWindow()
         {
             InitializeComponent();
-            UDP.Server udpServer = new UDP.Server();
+            UDP.Server udpServer = new UDP.Server(8001);
 
             Thread receiveThread = new Thread(new ThreadStart(udpServer.RecieveMessage));
             receiveThread.Start();

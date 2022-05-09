@@ -23,7 +23,6 @@ namespace Library
                     break;
                 }
 
-
             foreach (var ip in host.AddressList)
                 if (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetworkV6)
                 {

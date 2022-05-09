@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
-
+using System.Threading;
 
 namespace Library
 {
@@ -43,8 +43,12 @@ namespace Library
         public class Server
         {
             public readonly int recievePort;
+            Thread receiveThread;
+            bool stopped = false;
+
             public Server(int recievePort)
             {
+                receiveThread = new Thread(new ParameterizedThreadStart(RecieveMessage));
                 this.recievePort = recievePort;
             }
 
@@ -55,7 +59,7 @@ namespace Library
                 IPEndPoint remoteIp = null;
                 try
                 {
-                    while (true)
+                    while (true && stopped == false)
                     {
                         byte[] data = receiver.Receive(ref remoteIp);
                         string message = Encoding.Unicode.GetString(data);
@@ -79,6 +83,17 @@ namespace Library
                 {
                     receiver.Close();
                 }
+            }
+
+            public void StartRecieving(MessageProcesser messageProcesser)
+            {
+                stopped = false;
+                receiveThread.Start(new MessageProcesser(messageProcesser));
+            }
+
+            public void StopRecieving()
+            {
+                stopped = true;
             }
         }
     }

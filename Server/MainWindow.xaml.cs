@@ -24,9 +24,7 @@ namespace Server
             InitializeComponent();
             UDP.Server udpServer = new UDP.Server(8001);
 
-            Thread receiveThread = new Thread(new ParameterizedThreadStart(udpServer.RecieveMessage));
-            MessageProcesser msgdel = GetAnswer;
-            receiveThread.Start(msgdel);
+            udpServer.StartRecieving(GetAnswer);
 
         }
 

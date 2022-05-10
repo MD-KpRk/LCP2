@@ -23,7 +23,6 @@ namespace Server
         {
             InitializeComponent();
             UDP.Server udpServer = new UDP.Server(8001);
-
             udpServer.StartRecieving(GetAnswer);
 
         }

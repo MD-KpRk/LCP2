@@ -7,28 +7,28 @@ using System.Threading.Tasks;
 
 namespace Library
 {
-    public class MyIP
+    public static class MyIP
     {
-        public IPAddress? IPv6;
-        public IPAddress? IPv4;
-
-        public MyIP()
+        public static IPAddress? IPv6 { 
+            get 
+            {
+                var host = Dns.GetHostEntry(Dns.GetHostName());
+                foreach (var ip in host.AddressList)
+                    if (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetworkV6)
+                        return ip;
+                return null;
+            } 
+        }
+        public static IPAddress? IPv4
         {
-            var host = Dns.GetHostEntry(Dns.GetHostName());
-
-            foreach (var ip in host.AddressList)
-                if (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
-                {
-                    IPv4 = ip;
-                    break;
-                }
-
-            foreach (var ip in host.AddressList)
-                if (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetworkV6)
-                {
-                    IPv6 = ip;
-                    break;
-                }
+            get
+            {
+                var host = Dns.GetHostEntry(Dns.GetHostName());
+                foreach (var ip in host.AddressList)
+                    if (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                        return ip;
+                return null;
+            }
         }
     }
 }

@@ -21,20 +21,12 @@ namespace Client
     {
         public MainWindow()
         {
+            int targetPort = 8001;
+            int recievePort = 8003;
             InitializeComponent();
+            UDP.Client udpClient = new UDP.Client(targetPort);
 
-            MyIP ip = new MyIP();
-
-            MessageBox.Show("Local IP: " + ip.IPv4?.ToString());
-
-            UDP.Client udpClient = new UDP.Client(8001);
-            udpClient.SendBroadCastMessage("Hello all !");
-
-
-            UDP.Server udpServer = new UDP.Server(8002);
-
-
-            
+            udpClient.SendBroadCastMessage( MyIP.IPv4.ToString() + ";" + recievePort);
         }
     }
 

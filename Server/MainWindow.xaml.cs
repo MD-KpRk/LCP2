@@ -27,9 +27,9 @@ namespace Server
 
         }
 
-        void GetAnswer(string str)
+        void GetAnswer(LCPP pocket)
         {
-            MessageBox.Show(str);
+            MessageBox.Show(pocket.Message);
         }
     }
 }

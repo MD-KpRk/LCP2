@@ -7,7 +7,7 @@ using System.Threading;
 
 namespace Library
 {
-    public delegate void MessageProcesser(string message);
+    public delegate void MessageProcesser(LCPP message);
 
     public class UDP
     {
@@ -20,13 +20,13 @@ namespace Library
             {
                 this.targetPort = targetPort;
             }
-            public void SendBroadCastMessage(string Message)
+            public void SendBroadCastMessage(LCPP pocket)
             {
                 UdpClient sender = new UdpClient();
                 IPEndPoint endPoint = new IPEndPoint(groupAddr, targetPort);
                 try
                 {
-                    byte[] data = Encoding.Unicode.GetBytes(Message);
+                    byte[] data = Encoding.Unicode.GetBytes(DeEncrypter.Encrypt(pocket));
                     sender.Send(data, data.Length, endPoint);
                 }
                 catch (Exception ex)
@@ -67,7 +67,8 @@ namespace Library
                         {
                             MessageProcesser? messageProcessing = delg as MessageProcesser;
                             if (messageProcessing == null) return;
-                            messageProcessing(message);
+                            LCPP pocket = DeEncrypter.Decrypt(message);
+                            messageProcessing(pocket);
                         }
                         catch(Exception ex)
                         {

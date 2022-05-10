@@ -26,7 +26,10 @@ namespace Client
             InitializeComponent();
             UDP.Client udpClient = new UDP.Client(targetPort);
 
-            udpClient.SendBroadCastMessage( MyIP.IPv4.ToString() + ";" + recievePort);
+            LCPP message;
+            message = new LCPP(recievePort,targetPort,MyIP.IPv4, "Привет");
+
+            udpClient.SendBroadCastMessage(message);
         }
     }
 

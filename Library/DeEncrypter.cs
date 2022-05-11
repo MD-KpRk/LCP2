@@ -10,12 +10,12 @@ namespace Library
 {
     public static class DeEncrypter 
     {
-        public static string Encrypt(LCPP info)
+        public static string Decrypt(LCPP info)
         {
             return info.SourcePort + ";" + info.DestPort + ";" + info.SourceIP + ";" + info.Message;
         }
 
-        public static LCPP Decrypt(string Message)
+        public static LCPP Encrypt(string Message)
         {
             string[] parms = Message.Split(';');
             try

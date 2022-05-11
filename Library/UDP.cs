@@ -26,8 +26,26 @@ namespace Library
                 IPEndPoint endPoint = new IPEndPoint(groupAddr, targetPort);
                 try
                 {
-                    byte[] data = Encoding.Unicode.GetBytes(DeEncrypter.Encrypt(pocket));
+                    byte[] data = Encoding.Unicode.GetBytes(DeEncrypter.Decrypt(pocket));
                     sender.Send(data, data.Length, endPoint);
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex.Message);
+                }
+                finally
+                {
+                    sender.Close();
+                }
+            }
+
+            public void SendMessage(LCPP pocket, IPAddress ipAddress)
+            {
+                UdpClient sender = new UdpClient();
+                try
+                {
+                    byte[] data = Encoding.Unicode.GetBytes(DeEncrypter.Decrypt(pocket));
+                    sender.Send(data, data.Length, ipAddress.ToString(), pocket.DestPort);
                 }
                 catch (Exception ex)
                 {
@@ -67,7 +85,7 @@ namespace Library
                         {
                             MessageProcesser? messageProcessing = delg as MessageProcesser;
                             if (messageProcessing == null) return;
-                            LCPP pocket = DeEncrypter.Decrypt(message);
+                            LCPP pocket = DeEncrypter.Encrypt(message);
                             messageProcessing(pocket);
                         }
                         catch(Exception ex)

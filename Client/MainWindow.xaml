@@ -5,8 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Client"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Подключение к пк" Height="500" Width="700" MinWidth="500" MinHeight="200" WindowStartupLocation="CenterScreen">
     <Grid>
-
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock TextAlignment="Center" Text="Доступные устройства" VerticalAlignment="Center" FontSize="30" />
+        <DataGrid Grid.Row="1" Margin="10 10 10 10" IsReadOnly="True" />
     </Grid>
 </Window>

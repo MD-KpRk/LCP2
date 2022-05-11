@@ -24,12 +24,16 @@ namespace Server
             InitializeComponent();
             UDP.Server udpServer = new UDP.Server(8001);
             udpServer.StartRecieving(GetAnswer);
+            
 
         }
 
         void GetAnswer(LCPP pocket)
         {
             MessageBox.Show(pocket.Message);
+
+            UDP.Client udpclient = new UDP.Client(8002);
+
         }
     }
 }

@@ -32,7 +32,8 @@ namespace Server
         {
             MessageBox.Show(pocket.Message);
 
-            UDP.Client udpclient = new UDP.Client(8002);
+            UDP.Client udpClient = new UDP.Client(8002);
+            udpClient.SendMessage(new LCPP(8001, 8002, MyIP.IPv4, "1;"), pocket.SourceIP);
 
         }
     }

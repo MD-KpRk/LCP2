@@ -19,10 +19,10 @@ namespace Server
 {
     public partial class MainWindow : Window
     {
+        UDP.Server udpServer = new UDP.Server(8001);
         public MainWindow()
         {
             InitializeComponent();
-            UDP.Server udpServer = new UDP.Server(8001);
             udpServer.StartRecieving(GetAnswer);
             
 
@@ -35,6 +35,11 @@ namespace Server
             UDP.Client udpClient = new UDP.Client(8002);
             udpClient.SendMessage(new LCPP(8001, 8002, MyIP.IPv4, "1","ADW"), pocket.SourceIP);
 
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            udpServer.StopRecieving();
         }
     }
 }

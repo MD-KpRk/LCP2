@@ -35,13 +35,13 @@ namespace Client
             UDP.Server server = new UDP.Server(recievePort);
 
             server.StartRecieving(AddNewRow);
-            udpClient.SendBroadCastMessage(new LCPP(recievePort, targetPort, MyIP.IPv4, "Прив;Ку"));
+            udpClient.SendBroadCastMessage(new LCPP(recievePort, targetPort, MyIP.IPv4, "6;Ку"));
         }
 
         public void AddNewRow(LCPP pocket)
         {
             MessageBox.Show(pocket.Command);
-            ObservableCollection<UserModel> users = new ObservableCollection<UserModel>(viewModel.Users);
+            ObservableCollection<UserModel> users = new ObservableCollection<UserModel>(viewModel.Users.ToList());
             users.Add(new UserModel() { HostName = Dns.GetHostEntry(pocket.SourceIP).HostName, IP = pocket.SourceIP.ToString() });
             viewModel.Users = users;
         }

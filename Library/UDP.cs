@@ -96,7 +96,7 @@ namespace Library
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex.Message);
+                    Debug.WriteLine(ex.Message);
                 }
                 finally
                 {

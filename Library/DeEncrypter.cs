@@ -12,7 +12,7 @@ namespace Library
     {
         public static string Decrypt(LCPP info)
         {
-            return info.SourcePort + ";" + info.DestPort + ";" + info.SourceIP + ";" + info.Message;
+            return info.SourcePort + ";" + info.DestPort + ";" + info.SourceIP + ";" + info.Command + ";" + info.Args;
         }
 
         public static LCPP Encrypt(string Message)
@@ -20,9 +20,8 @@ namespace Library
             string[] parms = Message.Split(';');
             try
             {
-                LCPP protocol = new LCPP(Convert.ToInt32(parms[0]), Convert.ToInt32(parms[1]), IPAddress.Parse(parms[2]),parms[3]);
+                LCPP protocol = new LCPP(Convert.ToInt32(parms[0]), Convert.ToInt32(parms[1]), IPAddress.Parse(parms[2]), parms[3],parms[4]);
                 return protocol;
-
             }
             catch (Exception ex)
             {

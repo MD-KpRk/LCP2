@@ -12,6 +12,11 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <TextBlock TextAlignment="Center" Text="Доступные устройства" VerticalAlignment="Center" FontSize="30" />
-        <DataGrid Grid.Row="1" Margin="10 10 10 10" IsReadOnly="True" />
+        <DataGrid Grid.Row="1" Margin="10 10 10 10" >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Имя устройства" Binding="{Binding Path=Users.HostName}" />
+                <DataGridTextColumn Header="IP адрес" Binding="{Binding Path=Users.IP}" />
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Window>

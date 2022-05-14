@@ -17,6 +17,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Library;
+using Library.UDP;
 
 namespace Client
 {
@@ -27,12 +28,13 @@ namespace Client
 
         MainWindowViewModel viewModel = new MainWindowViewModel();
 
+        UDPServer server;
         public MainWindow()
         {
+            server = new UDPServer(recievePort);
             DataContext = viewModel;
             InitializeComponent();
-            UDP.Client udpClient = new UDP.Client(targetPort);
-            UDP.Server server = new UDP.Server(recievePort);
+            UDPClient udpClient = new UDPClient(targetPort);
 
             server.StartRecieving(AddNewRow);
             udpClient.SendBroadCastMessage(new LCPP(recievePort, targetPort, MyIP.IPv4, "6;Ку"));
@@ -46,6 +48,10 @@ namespace Client
             viewModel.Users = users;
         }
 
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            server.StopRecieving();
+        }
     }
 
     public class MainWindowViewModel : INotifyPropertyChanged

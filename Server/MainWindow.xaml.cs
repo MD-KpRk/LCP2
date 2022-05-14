@@ -14,12 +14,13 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Library;
+using Library.UDP;
 
 namespace Server
 {
     public partial class MainWindow : Window
     {
-        UDP.Server udpServer = new UDP.Server(8001);
+        UDPServer udpServer = new UDPServer(8001);
         public MainWindow()
         {
             InitializeComponent();
@@ -32,7 +33,7 @@ namespace Server
         {
             MessageBox.Show(pocket.Command);
 
-            UDP.Client udpClient = new UDP.Client(8002);
+            UDPClient udpClient = new UDPClient(8002);
             udpClient.SendMessage(new LCPP(8001, 8002, MyIP.IPv4, "1","ADW"), pocket.SourceIP);
 
         }

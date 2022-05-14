@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace Library
 {
+    public delegate void MessageProcesser(LCPP pocket);
     public class LCPP // LOCAL CONTROL PROJECT PROTOCOL
     {
         public int SourcePort { get; set; }

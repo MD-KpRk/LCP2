@@ -32,8 +32,8 @@ namespace Client
         public MainWindow()
         {
             server = new UDPServer(recievePort);
-            DataContext = viewModel;
             InitializeComponent();
+            this.DataContext = viewModel;
             UDPClient udpClient = new UDPClient(targetPort);
 
             server.StartRecieving(AddNewRow);
@@ -42,7 +42,7 @@ namespace Client
 
         public void AddNewRow(LCPP pocket)
         {
-            MessageBox.Show(pocket.Command);
+            //MessageBox.Show(pocket.Command);
             ObservableCollection<UserModel> users = new ObservableCollection<UserModel>(viewModel.Users.ToList());
             users.Add(new UserModel() { HostName = Dns.GetHostEntry(pocket.SourceIP).HostName, IP = pocket.SourceIP.ToString() });
             viewModel.Users = users;
@@ -77,9 +77,9 @@ namespace Client
 
     public class UserModel
     {
-        public string HostName = "";
-        public string IP = "";
-        public string Status = "";
+        public string HostName { get; set; } = "";
+        public string IP { get; set; } = "";
+        public string Status { get; set; } = "";
 
     }
 

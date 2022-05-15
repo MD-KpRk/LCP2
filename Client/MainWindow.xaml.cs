@@ -37,12 +37,12 @@ namespace Client
             UDPClient udpClient = new UDPClient(targetPort);
 
             server.StartBroadCastRecieve(AddNewRow);
-            udpClient.SendBroadCastMessage(new LCPP(recievePort, targetPort, MyIP.IPv4, CommandEnum.Ping.ToString()));
+            udpClient.SendBroadCastMessage(new LCPP(recievePort, targetPort, MyIP.IPv4, CommandEnum.Ping));
         }
 
         public void AddNewRow(LCPP pocket)
         {
-            MessageBox.Show(pocket.Command);
+            MessageBox.Show(pocket.Command + "");
             //ObservableCollection<UserModel> users = new ObservableCollection<UserModel>(viewModel.Users.ToList());
             //users.Add(new UserModel() { HostName = Dns.GetHostEntry(pocket.SourceIP).HostName, IP = pocket.SourceIP.ToString() });
             //viewModel.Users = users;

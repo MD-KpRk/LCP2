@@ -30,7 +30,6 @@ namespace Library.UDP
                     try
                     {
                         byte[] recvBuffer = udpClient.Receive(ref from);
-                        MessageBox.Show(from.Address + " " + from.Port);
                         messagefunc(DeEncrypter.Encrypt(Encoding.Unicode.GetString(recvBuffer)));
                     }
                     catch (Exception ex)

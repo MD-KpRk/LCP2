@@ -14,16 +14,20 @@
         <TextBlock TextAlignment="Center" Text="Доступные устройства" VerticalAlignment="Center" FontSize="30" />
         <DataGrid 
             IsReadOnly="True" 
-            CanUserResizeColumns="False"                               
+            CanUserResizeColumns="True"                               
             CanUserReorderColumns="False" 
             CanUserSortColumns="False" 
             CanUserResizeRows="False" 
             AutoGenerateColumns="False"
             Grid.Row="1" Margin="10 10 10 10" ItemsSource="{Binding Users}" >
             <DataGrid.Columns>
+                <DataGridTemplateColumn></DataGridTemplateColumn>
                 <DataGridTextColumn Header="Имя устройства" Binding="{Binding HostName}" />
                 <DataGridTextColumn Header="IP адрес" Binding="{Binding IP}" />
             </DataGrid.Columns>
+
+
+            
         </DataGrid>
     </Grid>
 </Window>

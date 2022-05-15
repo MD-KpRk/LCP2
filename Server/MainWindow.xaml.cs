@@ -36,7 +36,7 @@ namespace Server
         void GetAnswer(LCPP pocket)
         {
             UDPClient udpClient = new UDPClient(targetPort);
-            udpClient.SendBroadCastMessage(new LCPP(recievePort, targetPort, MyIP.IPv4, CommandEnum.Pong));
+            udpClient.SendBroadCastMessage(new LCPP(recievePort, targetPort, MyIP.IPv4, CommandEnum.Pong),2);
 
         }
 

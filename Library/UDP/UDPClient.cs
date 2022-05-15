@@ -17,13 +17,16 @@ namespace Library.UDP
         {
             this.targetPort = targetPort;
         }
-        public void SendBroadCastMessage(LCPP pocket)
+        public void SendBroadCastMessage(LCPP pocket, int repeats = 1)
         {
             UdpClient sender = new UdpClient();
             try
             {
-                byte[] data = Encoding.Unicode.GetBytes(DeEncrypter.Decrypt(pocket));
-                sender.Send(data, data.Length, new IPEndPoint(IPAddress.Broadcast, pocket.DestPort));
+                for (int i = 0; i < repeats; i++)
+                {
+                    byte[] data = Encoding.Unicode.GetBytes(DeEncrypter.Decrypt(pocket));
+                    sender.Send(data, data.Length, new IPEndPoint(IPAddress.Broadcast, pocket.DestPort));
+                }
             }
             catch (Exception ex)
             {

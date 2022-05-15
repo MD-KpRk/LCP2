@@ -19,7 +19,6 @@ namespace Library
         public static LCPP Encrypt(string Message)
         {
             string[] parms = Message.Split(';');
-            MessageBox.Show( parms[3]);
             try
             {
                 LCPP protocol = new LCPP(Convert.ToInt32(parms[0]), Convert.ToInt32(parms[1]), IPAddress.Parse(parms[2]), (CommandEnum)Convert.ToInt32(parms[3]),parms[4]);
@@ -29,7 +28,7 @@ namespace Library
             {
                 Debug.WriteLine(ex.Message);
             }
-            throw new Exception();
+            throw new Exception("Encrypt Error");
         }
     }
 

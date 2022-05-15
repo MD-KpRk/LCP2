@@ -43,6 +43,7 @@ namespace Client
         public void AddNewRow(LCPP pocket)
         {
             MessageBox.Show(pocket.Command + "");
+            viewModel.AddUser(new UserModel() { HostName = Dns.GetHostEntry(pocket.SourceIP).HostName, IP = pocket.SourceIP.ToString() });
             //ObservableCollection<UserModel> users = new ObservableCollection<UserModel>(viewModel.Users.ToList());
             //users.Add(new UserModel() { HostName = Dns.GetHostEntry(pocket.SourceIP).HostName, IP = pocket.SourceIP.ToString() });
             //viewModel.Users = users;
@@ -66,8 +67,11 @@ namespace Client
 
         public void AddUser(UserModel user)
         {
-
-            OnPropertyChanged("Users");
+            if (Users.Any(elem => elem.IP == user.IP)) return;
+            Application.Current.Dispatcher.Invoke(delegate 
+            {
+                Users.Add(user);
+            });
         }
 
 

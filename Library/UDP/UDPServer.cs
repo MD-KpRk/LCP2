@@ -27,21 +27,20 @@ namespace Library.UDP
 
         public void RecieveMessage(object? delg)
         {
-            
-            receiver.JoinMulticastGroup(groupAddr, 10);
+            receiver.JoinMulticastGroup(groupAddr);
             IPEndPoint remoteIp = null;
             try
             {
+                MessageProcesser? messagefunc = delg as MessageProcesser;
+                if (messagefunc == null) return;
+
                 while (true)
                 {
                     byte[] data = receiver.Receive(ref remoteIp);
                     string message = Encoding.Unicode.GetString(data);
                     try
                     {
-                        MessageProcesser? messageProcessing = delg as MessageProcesser;
-                        if (messageProcessing == null) return;
-                        LCPP pocket = DeEncrypter.Encrypt(message);
-                        messageProcessing(pocket);
+                        messagefunc(DeEncrypter.Encrypt(message));
                     }
                     catch (Exception ex)
                     {

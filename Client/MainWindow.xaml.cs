@@ -36,7 +36,7 @@ namespace Client
             this.DataContext = viewModel;
             UDPClient udpClient = new UDPClient(targetPort);
 
-            server.StartRecieving(AddNewRow);
+            server.StartBroadCastRecieve(AddNewRow);
             udpClient.SendBroadCastMessage(new LCPP(recievePort, targetPort, MyIP.IPv4, "6;Ку"));
         }
 

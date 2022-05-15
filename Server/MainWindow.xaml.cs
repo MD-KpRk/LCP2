@@ -24,7 +24,7 @@ namespace Server
         public MainWindow()
         {
             InitializeComponent();
-            udpServer.StartRecieving(GetAnswer);
+            udpServer.StartBroadCastRecieve(GetAnswer);
             
 
         }

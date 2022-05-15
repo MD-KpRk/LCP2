@@ -86,6 +86,7 @@ namespace Library.UDP
             {
                 while (true)
                 {
+                    task.Wait(10000);
                     try
                     {
                         byte[] recvBuffer = udpClient.Receive(ref from);

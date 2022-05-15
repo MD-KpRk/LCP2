@@ -42,7 +42,7 @@ namespace Client
 
         public void AddNewRow(LCPP pocket)
         {
-            //MessageBox.Show(pocket.Command);
+            MessageBox.Show(pocket.Command);
             ObservableCollection<UserModel> users = new ObservableCollection<UserModel>(viewModel.Users.ToList());
             users.Add(new UserModel() { HostName = Dns.GetHostEntry(pocket.SourceIP).HostName, IP = pocket.SourceIP.ToString() });
             viewModel.Users = users;

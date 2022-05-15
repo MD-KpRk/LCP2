@@ -86,11 +86,10 @@ namespace Library.UDP
             {
                 while (true)
                 {
-                    task.Wait(10000);
                     try
                     {
                         byte[] recvBuffer = udpClient.Receive(ref from);
-                        messagefunc(DeEncrypter.Encrypt(Encoding.UTF8.GetString(recvBuffer)));
+                        messagefunc(DeEncrypter.Encrypt(Encoding.Unicode.GetString(recvBuffer)));
                     }
                     catch (Exception)
                     { }

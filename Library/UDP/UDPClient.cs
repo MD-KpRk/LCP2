@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Library.UDP
 {
@@ -70,7 +71,7 @@ namespace Library.UDP
             try
             {
                 byte[] data = Encoding.Unicode.GetBytes(DeEncrypter.Decrypt(pocket));
-                sender.Send(data, data.Length, new IPEndPoint(IPAddress.Broadcast, targetPort));
+                sender.Send(data, data.Length, new IPEndPoint(IPAddress.Broadcast, pocket.DestPort));
             }
             catch (Exception ex)
             {

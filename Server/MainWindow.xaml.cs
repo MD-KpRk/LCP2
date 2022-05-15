@@ -20,10 +20,16 @@ namespace Server
 {
     public partial class MainWindow : Window
     {
-        UDPServer udpServer = new UDPServer(8001);
+        int targetPort = 8002;
+        int recievePort = 8001;
+
+
+        UDPServer udpServer;
         public MainWindow()
         {
+            udpServer = new UDPServer(recievePort);
             InitializeComponent();
+
             udpServer.StartBroadCastRecieve(GetAnswer);
         }
 
@@ -31,14 +37,10 @@ namespace Server
         {
             MessageBox.Show(pocket.Command);
 
-            //UDPClient udpClient = new UDPClient(8002);
-            //udpClient.SendMessage(new LCPP(8001, 8002, MyIP.IPv4, "1","ADW"), pocket.SourceIP);
+            UDPClient udpClient = new UDPClient(targetPort);
+            udpClient.SendBroadCastMessage(new LCPP(recievePort, targetPort, MyIP.IPv4, CommandEnum.Pong.ToString()));
 
         }
 
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            udpServer.StopRecieving();
-        }
     }
 }

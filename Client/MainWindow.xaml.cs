@@ -27,8 +27,8 @@ namespace Client
         int recievePort = 8002;
 
         MainWindowViewModel viewModel = new MainWindowViewModel();
-
         UDPServer server;
+
         public MainWindow()
         {
             server = new UDPServer(recievePort);
@@ -37,21 +37,17 @@ namespace Client
             UDPClient udpClient = new UDPClient(targetPort);
 
             server.StartBroadCastRecieve(AddNewRow);
-            udpClient.SendBroadCastMessage(new LCPP(recievePort, targetPort, MyIP.IPv4, "6;Ку"));
+            udpClient.SendBroadCastMessage(new LCPP(recievePort, targetPort, MyIP.IPv4, CommandEnum.Ping.ToString()));
         }
 
         public void AddNewRow(LCPP pocket)
         {
             MessageBox.Show(pocket.Command);
-            ObservableCollection<UserModel> users = new ObservableCollection<UserModel>(viewModel.Users.ToList());
-            users.Add(new UserModel() { HostName = Dns.GetHostEntry(pocket.SourceIP).HostName, IP = pocket.SourceIP.ToString() });
-            viewModel.Users = users;
+            //ObservableCollection<UserModel> users = new ObservableCollection<UserModel>(viewModel.Users.ToList());
+            //users.Add(new UserModel() { HostName = Dns.GetHostEntry(pocket.SourceIP).HostName, IP = pocket.SourceIP.ToString() });
+            //viewModel.Users = users;
         }
 
-        private void Window_Closed(object sender, EventArgs e)
-        {
-            server.StopRecieving();
-        }
     }
 
     public class MainWindowViewModel : INotifyPropertyChanged
@@ -67,6 +63,13 @@ namespace Client
                 OnPropertyChanged("Users");
             }
         }
+
+        public void AddUser(UserModel user)
+        {
+
+            OnPropertyChanged("Users");
+        }
+
 
         public event PropertyChangedEventHandler? PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "")

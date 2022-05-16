@@ -44,9 +44,7 @@ namespace Client
 
         public void AddNewRow(LCPP pocket)
         {
-
             viewModel.AddUser(new UserModel() { HostName = Dns.GetHostEntry(pocket.SourceIP).HostName, IP = pocket.SourceIP.ToString() });
-            MessageBox.Show(viewModel.Users.Count() + "");
         }
 
         #region Скроллинг юзеров

@@ -14,61 +14,62 @@
         </Grid.RowDefinitions>
         <TextBlock TextAlignment="Center" Text="Доступные устройства" VerticalAlignment="Center" FontSize="30" Margin="0 0 0 0" />
 
-        <ScrollViewer x:Name="scrollviewer" Grid.Row="1" HorizontalScrollBarVisibility="Hidden" 
-                      Margin="90,0,90,0"
+        <Border Grid.Row="1" Margin="90,0,90,0" BorderBrush="#FFD0D0D0" BorderThickness="1" >
+            <ScrollViewer x:Name="scrollviewer" HorizontalScrollBarVisibility="Hidden" 
                       VerticalScrollBarVisibility="Hidden"
                       PreviewMouseLeftButtonDown="scrollViewer_PreviewMouseLeftButtonDown" 
                       PreviewMouseLeftButtonUp="scrollViewer_PreviewMouseLeftButtonUp" 
                       PreviewMouseMove ="scrollViewer_PreviewMouseMove">
-            <StackPanel VerticalAlignment="Stretch" >
-                <ListBox x:Name="lb" ItemsSource="{Binding Path=Users}" HorizontalContentAlignment="Stretch" BorderBrush="{x:Null}">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate >
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="120"/>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition Width="120"/>
-                                </Grid.ColumnDefinitions>
+                <StackPanel VerticalAlignment="Stretch" >
+                    <ListBox x:Name="lb" ItemsSource="{Binding Path=Users}" HorizontalContentAlignment="Stretch" BorderBrush="{x:Null}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate >
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="120"/>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="120"/>
+                                    </Grid.ColumnDefinitions>
 
-                                <TextBlock Grid.Column="0" FontFamily="Segoe MDL2 Assets" Text="&#xE977;" FontSize="50" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                <TextBlock Grid.Column="1" TextAlignment="Center" VerticalAlignment="Center" >
+                                    <TextBlock Grid.Column="0" FontFamily="Segoe MDL2 Assets" Text="&#xE977;" FontSize="50" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    <TextBlock Grid.Column="1" TextAlignment="Center" VerticalAlignment="Center" >
                                 <Run Text="{Binding Path=HostName}" FontSize="20"/>
                                 <LineBreak/>
                                 <Run Text="{Binding Path=IP}"/>
-                                </TextBlock>
-                                <TextBlock Grid.Column="2" FontFamily="Segoe MDL2 Assets" Text="&#xF745;" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                            </Grid>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
+                                    </TextBlock>
+                                    <TextBlock Grid.Column="2" FontFamily="Segoe MDL2 Assets" Text="&#xF745;" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
 
 
-                    <ListBox.ItemContainerStyle>
-                        <Style TargetType="ListBoxItem">
-                            <Setter Property="Margin" Value="0 0 0 5"/>
-                        </Style>
-                    </ListBox.ItemContainerStyle>
-                </ListBox>
-                <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xF16A;" FontSize="40" HorizontalAlignment="Center" Margin="0,10,0,0" TextAlignment="Center" >
-                    <TextBlock.RenderTransform>
-                        <RotateTransform x:Name="rotate"
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="ListBoxItem">
+                                <Setter Property="Margin" Value="0 0 0 5"/>
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+                    </ListBox>
+                    <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xF16A;" FontSize="40" HorizontalAlignment="Center" Margin="0,10,0,0" TextAlignment="Center" >
+                        <TextBlock.RenderTransform>
+                            <RotateTransform x:Name="rotate"
                          CenterX="20"
                          CenterY="20"/>
-                    </TextBlock.RenderTransform>
-                    <TextBlock.Triggers>
-                        <EventTrigger RoutedEvent="Loaded">
-                            <BeginStoryboard>
-                                <Storyboard RepeatBehavior="Forever">
-                                    <DoubleAnimation Storyboard.TargetName="rotate"
+                        </TextBlock.RenderTransform>
+                        <TextBlock.Triggers>
+                            <EventTrigger RoutedEvent="Loaded">
+                                <BeginStoryboard>
+                                    <Storyboard RepeatBehavior="Forever">
+                                        <DoubleAnimation Storyboard.TargetName="rotate"
                                      Storyboard.TargetProperty="Angle"
                                      By="360" Duration="0:0:5"/>
-                                </Storyboard>
-                            </BeginStoryboard>
-                        </EventTrigger>
-                    </TextBlock.Triggers>
-                </TextBlock>
-            </StackPanel>
-        </ScrollViewer>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </TextBlock.Triggers>
+                    </TextBlock>
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
 
 
 

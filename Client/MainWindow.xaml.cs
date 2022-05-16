@@ -16,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using Library;
 using Library.UDP;
 
@@ -28,6 +29,7 @@ namespace Client
 
         MainWindowViewModel viewModel = new MainWindowViewModel();
         UDPServer server;
+        public bool CanScroll { get; set; } = true;
 
         public MainWindow()
         {
@@ -42,9 +44,40 @@ namespace Client
 
         public void AddNewRow(LCPP pocket)
         {
-            MessageBox.Show(pocket.Command + "");
+
             viewModel.AddUser(new UserModel() { HostName = Dns.GetHostEntry(pocket.SourceIP).HostName, IP = pocket.SourceIP.ToString() });
+            MessageBox.Show(viewModel.Users.Count() + "");
         }
+
+        #region Скроллинг юзеров
+        Point scrollMousePoint = new Point();
+        double hOff = 1;
+        private void scrollViewer_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            scrollMousePoint = e.GetPosition(scrollviewer);
+            hOff = scrollviewer.VerticalOffset;
+            if (CanScroll == true)
+            {
+                scrollviewer.CaptureMouse();
+            }
+        }
+        private void scrollViewer_PreviewMouseMove(object sender, MouseEventArgs e)
+        {
+            if (scrollviewer.IsMouseCaptured)
+            {
+                scrollviewer.ScrollToVerticalOffset(hOff + (scrollMousePoint.Y - e.GetPosition(scrollviewer).Y));
+            }
+        }
+        private void scrollViewer_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            scrollviewer.ReleaseMouseCapture();
+        }
+
+        private void scrollViewer_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            scrollviewer.ScrollToHorizontalOffset(scrollviewer.VerticalOffset + e.Delta);
+        }
+        #endregion
 
     }
 
@@ -61,10 +94,9 @@ namespace Client
                 OnPropertyChanged("Users");
             }
         }
-
         public void AddUser(UserModel user)
         {
-            if (Users.Any(elem => elem.IP == user.IP)) return;
+            if (Users.Any(elem => elem.IP == user.IP)) return; 
             Application.Current.Dispatcher.Invoke(delegate 
             {
                 Users.Add(user);

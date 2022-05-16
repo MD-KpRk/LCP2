@@ -37,8 +37,9 @@ namespace Server
         {
             UDPClient udpClient = new UDPClient(targetPort);
             udpClient.SendBroadCastMessage(new LCPP(recievePort, targetPort, MyIP.IPv4, CommandEnum.Pong),2);
-
         }
+
+
 
     }
 }

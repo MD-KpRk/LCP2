@@ -15,7 +15,6 @@ namespace Library.UDP
     {
         UdpClient udpClient = new UdpClient();
         IPEndPoint from = new IPEndPoint(0, 0);
-        Task? task;
         public readonly int recievePort;
 
         public void StartBroadCastRecieve(MessageProcesser messagefunc)
@@ -23,7 +22,7 @@ namespace Library.UDP
             if (messagefunc == null) throw new ArgumentNullException();
             udpClient.Client.Bind(new IPEndPoint(IPAddress.Any, recievePort));
 
-            task = Task.Run(() =>
+            Task.Run(() =>
             {
                 while (true)
                 {

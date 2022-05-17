@@ -52,7 +52,7 @@ namespace Client
         {
             timer = new DispatcherTimer();  
             timer.Tick += new EventHandler(timerTick);
-            timer.Interval = new TimeSpan(0, 0, 0, 0, 5000);
+            timer.Interval = new TimeSpan(0, 0, 0, 0, 3000);
             timer.Start();
         }
 

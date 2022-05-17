@@ -19,6 +19,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using Library;
+using Library.Models;
 using Library.UDP;
 
 namespace Client
@@ -128,14 +129,6 @@ namespace Client
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
-    }
-
-    public class UserModel
-    {
-        public string HostName { get; set; } = "";
-        public string IP { get; set; } = "";
-        public string Status { get; set; } = "";
-
     }
 
 }

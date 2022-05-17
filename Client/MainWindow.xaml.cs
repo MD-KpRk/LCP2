@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -29,18 +30,34 @@ namespace Client
 
         MainWindowViewModel viewModel = new MainWindowViewModel();
         UDPServer server;
+        UDPClient udpClient;
+        DispatcherTimer timer = new DispatcherTimer();
         public bool CanScroll { get; set; } = true;
 
         public MainWindow()
         {
             server = new UDPServer(recievePort);
-            InitializeComponent();
+            udpClient = new UDPClient(targetPort);
             this.DataContext = viewModel;
-            UDPClient udpClient = new UDPClient(targetPort);
+            InitializeComponent();
 
             server.StartBroadCastRecieve(AddNewRow);
-            udpClient.SendBroadCastMessage(new LCPP(recievePort, targetPort, MyIP.IPv4, CommandEnum.Ping),2);
+
+            BroadCastPing();
+            timerStart();
+
         }
+
+        private void timerStart()
+        {
+            timer = new DispatcherTimer();  
+            timer.Tick += new EventHandler(timerTick);
+            timer.Interval = new TimeSpan(0, 0, 0, 0, 5000);
+            timer.Start();
+        }
+
+        private void timerTick(object sender, EventArgs e) => BroadCastPing();
+        private void BroadCastPing() => udpClient.SendBroadCastMessage(new LCPP(recievePort, targetPort, MyIP.IPv4, CommandEnum.Ping), 1);
 
         public void AddNewRow(LCPP pocket)
         {
@@ -78,6 +95,10 @@ namespace Client
         #endregion
 
     }
+
+
+
+
 
     public class MainWindowViewModel : INotifyPropertyChanged
     {

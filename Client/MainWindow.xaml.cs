@@ -42,6 +42,8 @@ namespace Client
             this.DataContext = viewModel;
             InitializeComponent();
 
+            lb.SelectedItem = null;
+
             server.StartBroadCastRecieve(AddNewRow);
 
             BroadCastPing();
@@ -95,6 +97,17 @@ namespace Client
         }
         #endregion
 
+        private void lb_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            //MessageBox.Show(lb.SelectedItem.ToString());
+            //MessageBox.Show(((sender as ListBox).ItemsSource as ObservableCollection<UserModel>)[0].HostName);
+        }
+
+        private void lb_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            MessageBox.Show("s" + lb.SelectedItem.ToString());
+            
+        }
     }
 
 

@@ -21,9 +21,9 @@
                       PreviewMouseLeftButtonUp="scrollViewer_PreviewMouseLeftButtonUp" 
                       PreviewMouseMove ="scrollViewer_PreviewMouseMove">
                 <StackPanel VerticalAlignment="Stretch" >
-                    <ListBox x:Name="lb" ItemsSource="{Binding Path=Users}" HorizontalContentAlignment="Stretch" BorderBrush="{x:Null}">
+                    <ListBox x:Name="lb" ItemsSource="{Binding Path=Users}" HorizontalContentAlignment="Stretch" BorderBrush="{x:Null}" SelectionChanged="lb_SelectionChanged">
                         <ListBox.ItemTemplate>
-                            <DataTemplate >
+                            <DataTemplate>
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="120"/>
